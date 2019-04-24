@@ -59,3 +59,57 @@ Environment.
 13. Install NixOS:
 
         # nixos-install
+
+After a reboot, to gain the full comfort of the confkit goodies, setup
+[home-manager](https://github.com/rycee/home-manager) for both root and your
+user:
+
+1. Open a terminal and login as root:
+
+        $ sudo su
+
+2. Add the home-manager channel:
+
+        # nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
+
+3. Update the channels:
+
+        # nix-channel --update
+
+4. Link the root user home configuration:
+
+        # mkdir -p ~/.config/nixpkgs
+        # cd ~/.config/nixpkgs
+        # ln -s /home/<user>/.config_files/confkit/Nix/root.nix home.nix
+
+5. Setup home-manager for the root user:
+
+        # nix-shell -A '<home-manager>' -A install
+
+6. Restart the root shell.
+
+7. Install the *Oh My Zsh* plugins with `zi`\*.
+
+8. Quit the root shell with `^D`.
+
+9. Link your home configuration:
+
+        $ mkdir -p ~/.config/nixpkgs
+        $ cd ~/.config/nixpkgs
+        $ ln -s ../../.config_files/Nix/<hostname>/<user>.nix home.nix
+
+10. Setup home-manager:
+
+        $ nix-shell -A '<home-manager>' -A install
+
+11. You can now restart your shell.
+
+12. Install the *Oh My Zsh* plugins with `zi`\*.
+
+\* It will be handled via Nix at some point, but this is a work in progress.
+
+At this point, you can start editing your `configuration.nix` or `<user>.nix` to
+add features. There are plenty of `confkit` goodies to uncomment in the
+`<user>.nix`, like `direnv` support and aliases for several development tools.
+
+Enjoy! :-D
