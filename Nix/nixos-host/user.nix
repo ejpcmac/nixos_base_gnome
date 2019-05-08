@@ -1,6 +1,8 @@
-##
-## Home configuration for user@nixos-host
-##
+################################################################################
+##                                                                            ##
+##                   Home configuration for user@nixos-host                   ##
+##                                                                            ##
+################################################################################
 
 { config, pkgs, ... }:
 
@@ -42,10 +44,12 @@ in
     # ".zsh/ceedling.zsh".source = confkit.file "zsh/ceedling.zsh";
     # ".zsh/dev.zsh".source = confkit.file "zsh/dev.zsh";
     # ".zsh/direnv.zsh".source = confkit.file "zsh/direnv.zsh";
+    # ".zsh/django.zsh".source = confkit.file "zsh/django.zsh";
     # ".zsh/docker.zsh".source = confkit.file "zsh/docker.zsh";
     # ".zsh/elixir.zsh".source = confkit.file "zsh/elixir.zsh";
     ".zsh/git.zsh".source = confkit.file "zsh/git.zsh";
     # ".zsh/haskell.zsh".source = confkit.file "zsh/haskell.zsh";
+    # ".zsh/imagemagick.zsh".source = confkit.file "zsh/imagemagick.zsh";
     ".zsh/nix.zsh".source = confkit.file "zsh/nix.zsh";
     # ".zsh/ocaml.zsh".source = confkit.file "zsh/ocaml.zsh";
     # ".zsh/rust.zsh".source = confkit.file "zsh/rust.zsh";

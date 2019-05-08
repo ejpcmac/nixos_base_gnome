@@ -1,6 +1,8 @@
-##
-## System configuration for nixos-host
-##
+################################################################################
+##                                                                            ##
+##                    System configuration for nixos-host                     ##
+##                                                                            ##
+################################################################################
 
 { config, pkgs, ... }:
 
@@ -24,6 +26,7 @@ in
     environment
     nix
     tmux
+    utilities
     vim
     zsh
   ];
@@ -33,16 +36,14 @@ in
   ############################################################################
 
   boot = {
-    # TODO: Enable Grub for BIOS or systemd-boot for EFI.
-    # loader.grub.device = "/dev/sda";
+    loader = {
+      # Use the systemd-boot EFI boot loader.
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+      efi.efiSysMountPoint = "/boot";
 
-    # loader = {
-    #   # Use the systemd-boot EFI boot loader.
-    #   systemd-boot.enable = true;
-    #   efi.canTouchEfiVariables = true;
-    #   efi.efiSysMountPoint = "/boot";
-    #   timeout = 1;
-    # };
+      timeout = 1;
+    };
 
     cleanTmpDir = true;
   };
@@ -74,15 +75,6 @@ in
   hardware.u2f.enable = true;
 
   ############################################################################
-  ##                              Environment                               ##
-  ############################################################################
-
-  environment.variables = {
-    # Only use /etc/ranger/rc.conf and ~/.config/ranger/rc.conf
-    RANGER_LOAD_DEFAULT_RC = "FALSE";
-  };
-
-  ############################################################################
   ##                                 Fonts                                  ##
   ############################################################################
 
@@ -111,36 +103,12 @@ in
 
   environment.systemPackages = with pkgs; [
     # Utilities
-    curl
-    dcfldd
-    emv
-    git
-    git-lfs
     gnome3.gnome-session
-    gnupg
-    htop
-    iftop
-    imagemagick
-    killall
-    lsof
     maim
-    mkpasswd
-    mosh
+    mpc_cli
     nix-prefetch-github
-    nox
-    openssh
-    ranger
-    rename
-    rsync
-    sshfs
-    testdisk
-    trash-cli
-    tree
-    unzip
-    watch
-    wget
-    xz
-    zip
+    wakelan
+    xorg.xev
 
     # Applications
     firefox
@@ -161,7 +129,6 @@ in
 
   programs = {
     ssh.startAgent = true;
-    # vim.useBepoKeybindings = true;
   };
 
   ############################################################################
@@ -188,14 +155,5 @@ in
       displayManager.gdm.enable = true;
       desktopManager.gnome3.enable = true;
     };
-  };
-
-  ############################################################################
-  ##                          Custom configuration                          ##
-  ############################################################################
-
-  environment.etc = {
-    "ranger/rc.conf".source = confkit.file "ranger/rc.conf";
-    "ranger/scope.sh".source = "${pkgs.ranger}/share/doc/ranger/config/scope.sh";
   };
 }
